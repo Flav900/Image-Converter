@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /*
@@ -37,11 +38,19 @@ public class ImageGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFileChooser = new javax.swing.JFileChooser();
         destinationTextArea = new javax.swing.JTextField();
         convertBtn = new javax.swing.JButton();
         statusLbl = new javax.swing.JLabel();
         browseBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+
+        jFileChooser.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
+        jFileChooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFileChooserActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Image Converter");
@@ -55,7 +64,12 @@ public class ImageGUI extends javax.swing.JFrame {
 
         statusLbl.setText("Ready");
 
-        browseBtn.setText("Browse");
+        browseBtn.setText("Browse...");
+        browseBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                browseBtnActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("BMP Folder:");
 
@@ -64,20 +78,21 @@ public class ImageGUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(statusLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(destinationTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(browseBtn)
-                .addGap(27, 27, 27))
+                .addGap(44, 44, 44))
             .addGroup(layout.createSequentialGroup()
                 .addGap(207, 207, 207)
                 .addComponent(convertBtn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(statusLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,10 +125,8 @@ public class ImageGUI extends javax.swing.JFrame {
 
                 statusLbl.setText((i + 1) + " of " + paths.length);
                 try {
-                    if (paths[i].isFile()) {
-                        if (paths[i].getName().toLowerCase().endsWith(".bmp")) {
-                            convertBmpToPng(paths[i]);
-                        }
+                    if (paths[i].isFile()) {                       
+                            convertBmpToPng(paths[i]);                        
                     }
                 } catch (Exception ex) {
                     Logger.getLogger(ImageGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -124,6 +137,14 @@ public class ImageGUI extends javax.swing.JFrame {
             statusLbl.setText("Ready");
         }).start();
     }//GEN-LAST:event_convertBtnActionPerformed
+
+    private void browseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtnActionPerformed
+        jFileChooser.showDialog(this, "Select Folder");
+    }//GEN-LAST:event_browseBtnActionPerformed
+
+    private void jFileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooserActionPerformed
+        destinationTextArea.setText(jFileChooser.getSelectedFile().getAbsolutePath());
+    }//GEN-LAST:event_jFileChooserActionPerformed
 
     public void convertBmpToPng(File input) throws IOException {
         //Create file for the source  
@@ -149,7 +170,7 @@ public class ImageGUI extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -177,6 +198,7 @@ public class ImageGUI extends javax.swing.JFrame {
     private javax.swing.JButton browseBtn;
     private javax.swing.JButton convertBtn;
     private javax.swing.JTextField destinationTextArea;
+    private javax.swing.JFileChooser jFileChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel statusLbl;
     // End of variables declaration//GEN-END:variables
