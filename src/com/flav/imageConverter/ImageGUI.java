@@ -46,11 +46,6 @@ public class ImageGUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         jFileChooser.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
-        jFileChooser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFileChooserActionPerformed(evt);
-            }
-        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Image Converter");
@@ -139,12 +134,12 @@ public class ImageGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_convertBtnActionPerformed
 
     private void browseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtnActionPerformed
-        jFileChooser.showDialog(this, "Select Folder");
+       int accept = jFileChooser.showDialog(this, "Select Folder");
+       
+       if(accept == JFileChooser.APPROVE_OPTION) {
+             destinationTextArea.setText(jFileChooser.getSelectedFile().getAbsolutePath());
+       }       
     }//GEN-LAST:event_browseBtnActionPerformed
-
-    private void jFileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooserActionPerformed
-        destinationTextArea.setText(jFileChooser.getSelectedFile().getAbsolutePath());
-    }//GEN-LAST:event_jFileChooserActionPerformed
 
     public void convertBmpToPng(File input) throws IOException {
         //Create file for the source  
